@@ -1,6 +1,7 @@
 import urllib2
 import json
 from operator import itemgetter
+import inspect, os
 import keys
 
 #API key and userID
@@ -13,6 +14,10 @@ profileSummaryURL = "ISteamUser/GetPlayerSummaries/v0002/?"
 recentlyPlayedURL = "IPlayerService/GetRecentlyPlayedGames/v0001/?"
 ownedGamesURL = "IPlayerService/GetOwnedGames/v0001/?"
 achievementsURL = "ISteamUserStats/GetPlayerAchievements/v0001/?"
+
+FILE_LOCATION = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+OUTPUT_DIR = FILE_LOCATION + "/../output/"
+outputFile = OUTPUT_DIR + "steam.json"
 
 def getAppIds():
     content = urllib2.urlopen("http://api.steampowered.com/ISteamApps/GetAppList/v2").read()
@@ -178,9 +183,10 @@ def json_response(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
-    #getProfileInfo()
+    playforever = lifetimePlaytimeTile()
+    steamStats = {}
+    steamStats['playedForever'] = playforever
 
-    #Tiledata
-    playforever = json_response(lifetimePlaytimeTile())
-
-    print playforever
+    file = open(outputFile, 'w')
+    file.write(json_response(steamStats))
+    file.close()
