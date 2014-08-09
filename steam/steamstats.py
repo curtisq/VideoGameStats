@@ -1,5 +1,6 @@
 import urllib2
 import json
+from operator import itemgetter
 import keys
 
 #API key and userID
@@ -136,20 +137,22 @@ def recentlyPlayedTile():
 def lifetimePlaytimeTile():
     content = getOwnedGames(apiKey, userId, appinfo=1)
     total_mins = 0
-    most_played_mins = 0
-    most_played_id = 0
-    for game in content['games']:
+    sortedGames = sorted(content['games'], key=itemgetter('playtime_forever'), reverse=True)
+    for game in sortedGames:
         total_mins+= game['playtime_forever']
-        if game['playtime_forever'] > most_played_mins:
-            most_played_mins = game['playtime_forever']
-            most_played_id = game['name']
-    most_played_hours = float(most_played_mins)/60 if most_played_mins < 6000 else most_played_mins/60
-    total_hours = float(total_mins) / 60 if total_mins < 6000 else total_mins/60
-    mp_str = difference_dhm(most_played_mins * 60)
+
     tot_str = difference_dhm(total_mins * 60, max_units=2)
+    topGames = sortedGames[:10]
+    listVals=[]
+    for game in topGames:
+        info = {}
+        info['name'] = game['name']
+        info['playtime'] = difference_dhm(60 * game['playtime_forever'])
+        listVals.append(info)
+
     data = {}
     data['value'] = tot_str
-    data['segments'] = { most_played_id: mp_str }
+    data['listValues'] = listVals
     return data
 
 #Returns name of game from appid
@@ -163,27 +166,6 @@ def getAppFromId(id):
             return name
     return name
 
-def genTilespec():
-    output = {
-            'tilespec':[
-                {'displayTitle': 'PLAYTIME', 'displaySubtitle': 'LAST 2 WEEKS', 'url': 'steamtiles/playtime2week.json', 'group':'Activity', 'visible':True },
-                {'displayTitle': 'PLAYTIME', 'displaySubtitle': 'FOREVER', 'url': 'steamtiles/playtimeforever.json', 'group':'Activity', 'visible':True },
-                {'displayTitle': 'ACHIEVEMENTS', 'displaySubtitle': 'ALL TIME', 'url': 'steamtiles/steamachvs.json', 'group':'Activity', 'visible':True },
-                {'displayTitle': 'PLAYTIME', 'displaySubtitle': 'LEAGUE OF LEGENDS', 'url': 'steamtiles/playtimeleague.json', 'group':'Activity', 'visible':True },
-                {'displayTitle': 'ElITE KILLS', 'displaySubtitle': 'DIABLO 3', 'url': 'steamtiles/d3elitekills.json', 'group':'Activity', 'visible':True },
-             ],
-    }
-    return output
-
-def genDatasource():
-    output = {
-            'results': 'OK',
-            'directory': [
-                { 'type': 'tilespec', 'name': 'Steam Tiles', 'url': 'tilespec/steamdash'},
-            ]
-    }
-    return output
-
 def getProfileInfo():
     content = getProfileSummary(apiKey, userId)
     if 'timecreated' in content:
@@ -196,17 +178,9 @@ def json_response(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
-    getProfileInfo()
-
-    #datasource and tilespec
-    datasource = json_response(genDatasource())
-    tilespec = json_response(genTilespec())
+    #getProfileInfo()
 
     #Tiledata
-    playTile = json_response(recentlyPlayedTile())
     playforever = json_response(lifetimePlaytimeTile())
-    achv = json_response(getTotalAchievements())
 
-    print playTile
     print playforever
-    print achv
