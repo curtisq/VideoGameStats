@@ -18,5 +18,3 @@ def genDict():
     fdata['topGames1'] = topGames1to5
     fdata['topGames2'] = topGames6to10
     return fdata
-
-values = genDict()

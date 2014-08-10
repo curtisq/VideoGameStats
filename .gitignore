@@ -2,3 +2,4 @@ steam/keys.py
 blizzard/keys.py
 league/keys.py
 */*.pyc
+*.pyc

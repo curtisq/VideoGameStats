@@ -16,9 +16,14 @@ recentlyPlayedURL = "IPlayerService/GetRecentlyPlayedGames/v0001/?"
 ownedGamesURL = "IPlayerService/GetOwnedGames/v0001/?"
 achievementsURL = "ISteamUserStats/GetPlayerAchievements/v0001/?"
 
+
 FILE_LOCATION = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 OUTPUT_DIR = FILE_LOCATION + "/../output/"
 outputFile = OUTPUT_DIR + "steam.json"
+genHTML = FILE_LOCATION + "/../genoutput.py"
+
+sys.path.insert(0, FILE_LOCATION + "/../")
+import genoutput
 
 def getAppIds():
     content = urllib2.urlopen("http://api.steampowered.com/ISteamApps/GetAppList/v2").read()
@@ -63,7 +68,10 @@ def getOwnedGames(key, user, appinfo=0, free_games=1):
 def getProfileSummary(key, user):
     reqURL = baseURL + profileSummaryURL + "key=" + key + "&steamids=" + user
     print "Request: " + reqURL
-    content = urllib2.urlopen(reqURL).read()
+    try:
+        content = urllib2.urlopen(reqURL).read()
+    except:
+        return False
     data = json.loads(content)
     #this api call can return info on multiple players, using it for only one here
     return data['response']['players'][0] 
@@ -82,11 +90,14 @@ def getAchievements(key, user, appid):
     reqURL = baseURL + achievementsURL + "key=" + key + "&steamid=" + user
     reqURL += "&appid="  + str(appid)
     print "Request: " + reqURL
+    content = ""
     try:
         content = urllib2.urlopen(reqURL).read()
     except urllib2.HTTPError, err:
         if err.code == 400:
             return False
+    if content == "":
+        return False
     data = json.loads(content)
     return data['playerstats']
 
@@ -198,6 +209,9 @@ def getAppFromId(id):
 
 def getProfileInfo():
     content = getProfileSummary(apiKey, userId)
+    if content == False:
+        print "An Error occured"
+        return {}
     if 'timecreated' in content:
         print "PRIVATE INFO"
     else:
@@ -210,9 +224,11 @@ def json_response(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
-    if sys.argv[1]:
-        print sys.argv[1]
+    try:
         userId = sys.argv[1]
+    except:
+        pass
+    print userId
     playforever = lifetimePlaytimeTile()
     profile = getProfileInfo()
     steamStats = {}
@@ -220,4 +236,7 @@ if __name__ == "__main__":
     steamStats['username'] = profile['username']
     file = open(outputFile, 'w')
     file.write(json_response(steamStats))
+    file = open("./thisisatest.dat", 'a')
+    file.write("anothetesti..")
     file.close()
+    genoutput.makeOutput(src= OUTPUT_DIR + "output.html")
