@@ -27,20 +27,24 @@ def getAppIds():
 AppIdReference = getAppIds()
 
 #Calculate string in days/hours/minutes from seconds number
-def difference_dhm(seconds, max_units=2, use_smallcaps=True):
+def difference_dhm(seconds, max_units=2, use_smallcaps=True, use_words=False):
     if max_units < 1:
         raise ValueError('max_units must be >=1')
     divisors = ( 86400, 3600, 60, 1 )
-    units = ( u'\u1d05', u'\u029c', u'\u1d0d', u'\uA731' ) if use_smallcaps else ( 'D', 'H', 'M', 'S' ) 
+    units = ( u'\u1d05', u'\u029c', u'\u1d0d', u'\uA731' ) if use_smallcaps else ( 'D', 'H', 'M', 'S' )
+    units_singular = units
+    if use_words:
+        units = ( ' Days ', ' Hours ', ' Minutes ', ' Seconds')
+        units_singular = ( ' Day ', ' Hour ', ' Minute ', ' Second')
     units_used = 0
     result = u"-" if seconds < 0 else u""
     remainder = abs(seconds)
-    for d, u in zip(divisors, units):
+    for d, u, s in zip(divisors, units, units_singular):
         if units_used >= max_units or (remainder == 0 and units_used > 0):
             break
         res, remainder = divmod(remainder, d)
         if res > 0 or d == 1:
-            result += u"{}{}".format(int(res), u)
+            result += u"{}{}".format(int(res), u) if res > 1 else u"{}{}".format(int(res), s)
             units_used += 1
     return result
 
@@ -146,17 +150,37 @@ def lifetimePlaytimeTile():
     for game in sortedGames:
         total_mins+= game['playtime_forever']
 
-    tot_str = difference_dhm(total_mins * 60, max_units=2)
+    tot_str = difference_dhm(total_mins * 60, max_units=2, use_words=True)
     topGames = sortedGames[:10]
     listVals=[]
     for game in topGames:
+        completed = 0
+        incomplete = 0
+        achvs = getAchievements(apiKey, userId, game['appid'])
+        if achvs:
+            for achv in achvs['achievements']:
+                if achv['achieved'] == 1:
+                    completed += 1
+                else:
+                    incomplete += 1
         info = {}
         info['name'] = game['name']
-        info['playtime'] = difference_dhm(60 * game['playtime_forever'])
+        info['playtime_min'] = game['playtime_forever']
+        info['playtime_hours'] = int(game['playtime_forever']/60)
+        info['playtime_str'] = difference_dhm(60 * game['playtime_forever'], use_words=True)
+        info['achvComplete'] = completed
+        info['achvIncomplete'] = incomplete
+        info['icon_url'] = 'http://media.steampowered.com/steamcommunity/public/images/apps/' + str(game['appid']) + '/' + game['img_icon_url'] + '.jpg'
+        info['game_page'] = 'http://store.steampowered.com/app/' + str(game['appid'])
+        try:
+            info['pct_complete'] = int(float(completed) / float((completed + incomplete)) * 100)
+        except ZeroDivisionError:
+            info['pct_complete'] = '?'
         listVals.append(info)
 
     data = {}
-    data['value'] = tot_str
+    data['value_str'] = tot_str
+    data['value_min'] = total_mins
     data['listValues'] = listVals
     return data
 
@@ -177,16 +201,19 @@ def getProfileInfo():
         print "PRIVATE INFO"
     else:
         print "PUBLIC INFO ONLY"
-    return 1
+    data = {}
+    data['username'] = content['personaname']
+    return data
 
 def json_response(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
     playforever = lifetimePlaytimeTile()
+    profile = getProfileInfo()
     steamStats = {}
     steamStats['playedForever'] = playforever
-
+    steamStats['username'] = profile['username']
     file = open(outputFile, 'w')
     file.write(json_response(steamStats))
     file.close()

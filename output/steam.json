@@ -2,46 +2,118 @@
     "playedForever": {
         "listValues": [
             {
+                "achvComplete": 317,
+                "achvIncomplete": 189,
+                "game_page": "http://store.steampowered.com/app/440",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/440/e3f595a92552da3d664ad00277fad2107345f743.jpg",
                 "name": "Team Fortress 2",
-                "playtime": "42\u1d054\u029c"
+                "pct_complete": 62,
+                "playtime_hours": 1012,
+                "playtime_min": 60767,
+                "playtime_str": "42 Days 4 Hours "
             },
             {
+                "achvComplete": 0,
+                "achvIncomplete": 0,
+                "game_page": "http://store.steampowered.com/app/252490",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/252490/f073e61dd96fbe94aaae0fbe5de0d8ffc2402f75.jpg",
                 "name": "Rust",
-                "playtime": "8\u1d0517\u029c"
+                "pct_complete": "?",
+                "playtime_hours": 210,
+                "playtime_min": 12627,
+                "playtime_str": "8 Days 18 Hours "
             },
             {
+                "achvComplete": 54,
+                "achvIncomplete": 26,
+                "game_page": "http://store.steampowered.com/app/8980",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/8980/eb45fb32b7f4e75564a30a52aa3c35a191253ea0.jpg",
                 "name": "Borderlands",
-                "playtime": "3\u1d0519\u029c"
+                "pct_complete": 67,
+                "playtime_hours": 91,
+                "playtime_min": 5511,
+                "playtime_str": "3 Days 19 Hours "
             },
             {
+                "achvComplete": 0,
+                "achvIncomplete": 0,
+                "game_page": "http://store.steampowered.com/app/221100",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/221100/16a985dfee9b093d76a0ffc4cf4c77ba20c2eb0d.jpg",
                 "name": "DayZ",
-                "playtime": "3\u1d0518\u029c"
+                "pct_complete": "?",
+                "playtime_hours": 90,
+                "playtime_min": 5445,
+                "playtime_str": "3 Days 18 Hours "
             },
             {
+                "achvComplete": 31,
+                "achvIncomplete": 38,
+                "game_page": "http://store.steampowered.com/app/49520",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/49520/a3f4945226e69b6196074df4c776e342d3e5a3be.jpg",
                 "name": "Borderlands 2",
-                "playtime": "2\u1d0511\u029c"
+                "pct_complete": 44,
+                "playtime_hours": 59,
+                "playtime_min": 3540,
+                "playtime_str": "2 Days 11 Hours "
             },
             {
+                "achvComplete": 35,
+                "achvIncomplete": 252,
+                "game_page": "http://store.steampowered.com/app/8930",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/8930/fbe80c4743e226f0bf65559c91b12953d4446808.jpg",
                 "name": "Sid Meier's Civilization V",
-                "playtime": "1\u1d0515\u029c"
+                "pct_complete": 12,
+                "playtime_hours": 39,
+                "playtime_min": 2352,
+                "playtime_str": "1 Day 15 Hours "
             },
             {
+                "achvComplete": 23,
+                "achvIncomplete": 81,
+                "game_page": "http://store.steampowered.com/app/65800",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/65800/8de7e7e9af523591c34b713b0b21910058ab4169.jpg",
                 "name": "Dungeon Defenders",
-                "playtime": "1\u1d0512\u029c"
+                "pct_complete": 22,
+                "playtime_hours": 36,
+                "playtime_min": 2178,
+                "playtime_str": "1 Day 12 Hours "
             },
             {
+                "achvComplete": 5,
+                "achvIncomplete": 70,
+                "game_page": "http://store.steampowered.com/app/22380",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/22380/1711fd8c46d739feec76bd4a64eaeeca5b87e3a7.jpg",
                 "name": "Fallout: New Vegas",
-                "playtime": "1\u1d057\u029c"
+                "pct_complete": 6,
+                "playtime_hours": 31,
+                "playtime_min": 1880,
+                "playtime_str": "1 Day 7 Hours "
             },
             {
+                "achvComplete": 0,
+                "achvIncomplete": 0,
+                "game_page": "http://store.steampowered.com/app/7940",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/7940/b40c43b0b14b7e124553e0220581a1b9ef8e38bf.jpg",
                 "name": "Call of Duty 4: Modern Warfare",
-                "playtime": "1\u1d052\u029c"
+                "pct_complete": "?",
+                "playtime_hours": 26,
+                "playtime_min": 1593,
+                "playtime_str": "1 Day 2 Hours "
             },
             {
+                "achvComplete": 4,
+                "achvIncomplete": 0,
+                "game_page": "http://store.steampowered.com/app/104700",
+                "icon_url": "http://media.steampowered.com/steamcommunity/public/images/apps/104700/5a5dd4420068a68f0d654edbfabf2bff5f8b3b0a.jpg",
                 "name": "Super Monday Night Combat",
-                "playtime": "1\u1d052\u029c"
+                "pct_complete": 100,
+                "playtime_hours": 26,
+                "playtime_min": 1584,
+                "playtime_str": "1 Day 2 Hours "
             }
         ],
-        "value": "70\u1d0519\u029c"
-    }
+        "value_min": 102028,
+        "value_str": "70 Days 20 Hours "
+    },
+    "username": "TylerQ"
 }
