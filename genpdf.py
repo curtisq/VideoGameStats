@@ -135,7 +135,7 @@ def Ftemplatedata():
 
 
 def makePDF(src="./templateOutput/Foutput.html", dest="/pipeline/data/reports/genpdf.pdf"):
-    template = renderJinjaTemplates.loadTemplate(location = "steam/macaw/pagetest/index_template.html")
+    template = renderJinjaTemplates.loadTemplate(location = "steam/macaw/pagetest/index_template2.html")
     data = finaldict.genDict()
     template = renderJinjaTemplates.renderSaveTemplate(template, data, src)
     #check dest exists and is writeable
