@@ -138,6 +138,7 @@ def makePDF(src="./templateOutput/Foutput.html", dest="/pipeline/data/reports/ge
     template = renderJinjaTemplates.loadTemplate(location = "steam/macaw/pagetest/index_template2.html")
     data = finaldict.genDict()
     template = renderJinjaTemplates.renderSaveTemplate(template, data, src)
+    print template
     #check dest exists and is writeable
     if not os.path.exists(os.path.dirname(dest)):
         print dest + " directory for file does not exist"

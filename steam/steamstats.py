@@ -1,3 +1,4 @@
+import sys
 import urllib2
 import json
 from operator import itemgetter
@@ -209,6 +210,9 @@ def json_response(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
+    if sys.argv[1]:
+        print sys.argv[1]
+        userId = sys.argv[1]
     playforever = lifetimePlaytimeTile()
     profile = getProfileInfo()
     steamStats = {}
