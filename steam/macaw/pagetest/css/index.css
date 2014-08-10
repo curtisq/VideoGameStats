@@ -23,6 +23,7 @@ body {
 h1{
     -webkit-animation: grandentrance 2s ease-out !important;
     animation: grandentrance 2s ease-out !important;
+    text-shadow: 0px 1px 14px black;
 }
 
 @-webkit-keyframes grandentrance{
@@ -224,7 +225,7 @@ h2{
 
 ._text-2 {
   position: absolute;
-  top: 303px;
+  top: 250px;
   left: 10%;
   z-index: 16;
   width: 80%;
@@ -392,8 +393,13 @@ h2{
 .text a {
   color: rgb(198, 198, 198);
 }
-
-@media(max-width: 1350px) {
+@media(max-width: 2500px) {
+._text-2 {
+  top: 300px;
+  font-size: 4em;
+}
+}
+@media(max-width: 1600px) {
   .panel-1 {
     position: relative;
     z-index: 14;
@@ -405,10 +411,10 @@ h2{
   }
 
   ._text-2 {
-    top: 270px;
+    top: 230px;
     left: 16.8148148148%;
     width: 66.3703703703%;
-    font-size: 3.333em;
+    font-size: 4em;
   }
 
   ._text-5 {
@@ -869,7 +875,7 @@ h2{
   }
 
   ._text-2 {
-    top: 272px;
+    top: 200px;
     left: 0;
     right: 0;
     margin-right: auto;
