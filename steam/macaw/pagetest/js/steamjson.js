@@ -8,8 +8,6 @@ var ownedGamesURL = "IPlayerService/GetOwnedGames/v0001/?";
 var achievementsURL = "ISteamUserStats/GetPlayerAchievements/v0001/?";
 var recentlyPlayedURL = "IPlayerService/GetRecentlyPlayedGames/v0001/?";
 
-var key = "80F844C6A71634409CA1946FDAA9A98C";
-var id = "76561198006484627"; //Curtis
 
 function getJson(url) {
 	console.log("Requesting JSON from URL " + url);
@@ -139,10 +137,22 @@ function playtimeTotal(key, id) {
 	return allinfo
 }
 
+/*Get url params
+ * from stackoverflor
+ */
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	    results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 /*Test out API json fetching functions
  */
 function test() {
 	console.log("start all");
+	var newid = getParameterByName('steamid');
+	if (newid != null) id = newid;
 	//get profile info
 	var profileinfo = getProfileSummary(key, id);
 	console.log(profileinfo);
@@ -180,7 +190,6 @@ function test() {
 		d += "<img src='" + bot5[game]['icon_url'] + "'/></a></div>";
 		$('#bot5icons').append(d);
 	}
-
 
 	return 
 }

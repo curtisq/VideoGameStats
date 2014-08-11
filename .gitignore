@@ -3,3 +3,5 @@ blizzard/keys.py
 league/keys.py
 */*.pyc
 *.pyc
+*/keys.*
+steam/macaw/pagetest/js/keys*
