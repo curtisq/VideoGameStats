@@ -20,35 +20,7 @@ body {
   -ms-filter: none;
   filter: none;
 }
-h1{
-    -webkit-animation: grandentrance 2s ease-out !important;
-    animation: grandentrance 2s ease-out !important;
-    text-shadow: 0px 1px 14px black;
-}
 
-
-@-webkit-keyframes grandentrance{
-	from {opacity: 0;
-		-webkit-filter: blur(100px);
-	}
-	to {opacity: 1;
-		-webkit-filter: blur(0px);
-	}
-}
-
-@keyframes grandentrance{
-	from {opacity: 0;
-		filter: blur(100px);
-	}
-	to {opacity: 1;
-		filter: blur(0px);
-	}
-}
-
-h2{
-	    -webkit-animation: grandentrance 3.5s ease-out !important;
-    animation: grandentrance 3.5s ease-out !important;
-}
 .gameicn {
   position: absolute;
   width: 32px;
@@ -56,7 +28,7 @@ h2{
   height: 32px;
   min-height: nonepx;
   border-radius: 4px;
-  background-color: black;
+  background-color: rgb(222, 222, 222);
   -webkit-transform: none;
   -moz-transform: none;
   -o-transform: none;
@@ -74,18 +46,6 @@ h2{
   filter: none;
 }
 
-.gameicn img{
-	border:none;
-	border-radius: 4px;
-}
-
-.gameicn img:hover{
-	opacity: 60%;
-}
-
-.gameicn:hover{
-	box-shadow: 0px 0px 22px rgba(223,255,241,0.9);
-}
 .panel-1 {
   position: relative;
   float: left;
@@ -95,7 +55,7 @@ h2{
   height: 595px;
   min-height: nonepx;
   margin-top: 49px;
-  background: url('../images/sitebg.jpg') rgb(0, 0, 0);
+  background: url('../images/sitebg(2).jpg') rgb(0, 0, 0);
   background-size: cover;
   background-position: center center;
   -webkit-transform: none;
@@ -179,7 +139,6 @@ h2{
   top: 952px;
   left: 20.1176470588%;
   z-index: 10;
-   animation: blurFadeIn 3s ease-in backwards;
 }
 
 .gameicn-3 {
@@ -226,7 +185,7 @@ h2{
 
 ._text-2 {
   position: absolute;
-  top: 250px;
+  top: 303px;
   left: 10%;
   z-index: 16;
   width: 80%;
@@ -383,24 +342,10 @@ h2{
 }
 
 ._text span {
-  font-family: Roboto;
   font-size: 0.667em;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #666666;
 }
 
-.text a {
-  color: rgb(198, 198, 198);
-}
-@media(max-width: 2500px) {
-._text-2 {
-  top: 300px;
-  font-size: 4em;
-}
-}
-@media(max-width: 1600px) {
+@media(max-width: 1350px) {
   .panel-1 {
     position: relative;
     z-index: 14;
@@ -412,10 +357,10 @@ h2{
   }
 
   ._text-2 {
-    top: 230px;
+    top: 270px;
     left: 16.8148148148%;
     width: 66.3703703703%;
-    font-size: 4em;
+    font-size: 3.333em;
   }
 
   ._text-5 {
@@ -876,7 +821,7 @@ h2{
   }
 
   ._text-2 {
-    top: 200px;
+    top: 272px;
     left: 0;
     right: 0;
     margin-right: auto;
