@@ -219,6 +219,11 @@ body {
   .sign-up {
     position: relative;
     z-index: 3;
+    margin-left: 16.79911%;
+  }
+
+  ._text {
+    margin-left: 16.79911%;
   }
 
   .sign-up ._input {
