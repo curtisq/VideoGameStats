@@ -157,7 +157,7 @@ function test() {
 	var newid = getParameterByName('steamid');
 	if (newid != null) id = newid;
 
-	key = "This was moved to php";
+	key = "";
 
 	//get profile info
 	var profileinfo = getProfileSummary(key, id);
