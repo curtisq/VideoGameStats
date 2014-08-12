@@ -30,7 +30,7 @@ function getJson(url) {
  */
 function getProfileSummary(apiKey, userId) {
 
-	var url = baseURL + profileSummaryURL + "key=" + apiKey + "&steamids=" + userId;
+	var url = baseURL + profileSummaryURL + "&steamids=" + userId;
 	console.log("Requesting: " + url);
 	var mydata = {};
 	$.ajax({
@@ -51,7 +51,7 @@ function getProfileSummary(apiKey, userId) {
  */
 function getOwnedGames(apiKey, userId) {
 
-	var url = baseURL + ownedGamesURL + "key=" + apiKey + "&steamid=" + userId;
+	var url = baseURL + ownedGamesURL + "&steamid=" + userId;
 	url += "&include_appinfo=1" + "&include_played_free_games=1";
 	console.log("Requesting: " + url);
 	var mydata = {};
@@ -73,7 +73,7 @@ function getOwnedGames(apiKey, userId) {
  */
 function getGameAchievements(apiKey, userId, appid) {
 
-	var url = baseURL + achievementsURL + "key=" + apiKey + "&steamid=" + userId;
+	var url = baseURL + achievementsURL + "&steamid=" + userId;
 	url += "&appid=" + appid;
 	console.log("Requesting: " + url);
 	var mydata = {};
@@ -156,6 +156,9 @@ function test() {
 	console.log("start all");
 	var newid = getParameterByName('steamid');
 	if (newid != null) id = newid;
+
+	key = "This was moved to php";
+
 	//get profile info
 	var profileinfo = getProfileSummary(key, id);
 	console.log(profileinfo);
