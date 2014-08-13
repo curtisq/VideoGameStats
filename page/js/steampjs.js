@@ -140,7 +140,7 @@ function playtimeTotal(key, id) {
 		}
 		info['total_achvs'] = total_achvs;
 		info['comp_acvs'] = comp_achvs;
-		info['pct_complete'] = Math.round((comp_achvs / total_achvs) * 100);
+		info['pct_complete'] = Math.round((comp_achvs / total_achvs) * 100) || "?";
 		listVals.push(info)
 	}
 	
@@ -168,26 +168,41 @@ function getParameterByName(name) {
 function test() {
 	console.log("start all");
 	var newid = getParameterByName('steamid');
-	if (newid != null) id = newid;
+	if (newid != "") {
+		id = newid;
+	} else {
+		//No Steam ID entered return in error
+	}
 
 	key = "";
 	
 	//get profile info
 	var profileinfo = getProfileSummary(key, id);
 	console.log(profileinfo);
+	if(jQuery.isEmptyObject(profileinfo)) {
+		//couldnt aquire profile info return in error
+	}
 	//get playtime info
 	var playinfo = playtimeTotal(key, id);
 	console.log(playinfo);
-
+	if(jQuery.isEmptyObject(playinfo)) {
+		//couldnt aquire game info return in error
+	}
 	var top5 = playinfo['top10'].slice(0,5);
 	var bot5 = playinfo['top10'].slice(5,10);
 	//Replace headline text
 	$('#main-headline').text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
 	$('#subhead').text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
+	//profileinfo['profileurl'] is players page
+	//profileinfo['personastate'] is status 0- offline 1-online 2-busy 3-away 4-snooze 5-looking to trade 6-looking to play
+	//profileinfo['avatarfull'] 184x184px avatar
+	//profileinfo['avatarmedium'] 64x64px avatar
+	//profileinfo['timecreated'] time since epoch account was created PRIVATE INFO
+	
 	//Generate Game lists
 	for (game in top5){
-		var p = "<p>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>Played " + top5[game]['playtime_hours'] + " hrs.";
-		p += top5[game]['pct_complete'] + "% Completed.</span></p>";
+		var p = "<p>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>Played " + top5[game]['playtime_hours'] + " hrs. ";
+		p += top5[game]['pct_complete'] + "% Completed Achievenemts.</span></p>";
 		$('._text-5').append(p);
 	}
 	//generate image icons
@@ -199,8 +214,8 @@ function test() {
 
 	//Generate Game lists
 	for (game in bot5){
-		var p = "<p>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>Played " + bot5[game]['playtime_hours'] + " hrs.";
-		p += bot5[game]['pct_complete'] + "% Completed.</span></p>";
+		var p = "<p>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>Played " + bot5[game]['playtime_hours'] + " hrs. ";
+		p += bot5[game]['pct_complete'] + "% Completed Achievements.</span></p>";
 		$('._text-6').append(p);
 	}
 	//generate image icons
