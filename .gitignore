@@ -5,4 +5,5 @@ league/keys.py
 *.pyc
 */keys.*
 steam/macaw/pagetest/js/keys*
+page/
 steam/macaw/pagetest/key.txt
