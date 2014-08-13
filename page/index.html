@@ -8,8 +8,11 @@
   <link rel="stylesheet" href="css/standardize.css">
   <link rel="stylesheet" href="css/intro-grid.css">
   <link rel="stylesheet" href="css/intro.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="./js/steampjs.js"></script>
 </head>
-<body class="body intro clearfix">
+<body class="body intro clearfix" onload="checkError()">
+  <div id='iderror'></div>
   <h1 class="_text _text-1">How much time do you spend on Steam?</h1>
   <form class="sign-up clearfix" method="get" action="./get_steamid.php">
     <input id="steamIDfield" class="_input js-steam-i-d" name="steamid" placeholder="Enter your Steam Profile Page URL" type="text">

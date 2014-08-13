@@ -163,6 +163,21 @@ function getParameterByName(name) {
 	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function checkError() {
+	var error = getParameterByName('error');
+	var steamsite = "'steamcommunity.com'";
+	if(error == "") {
+		return;
+	}
+	if(error == "nopage") {
+		$('#iderror').text("ERROR - No web page was found at the URL you entered. Make sure the URL contains " + steamsite);
+	}
+	if(error == "noprofile") {
+		$('#iderror').text("ERROR - The URL you entered is not a valid Steam Profile Page. Make sure the URL contains " + steamsite);
+	}
+	return;
+}
+
 /*Test out API json fetching functions
  */
 function test() {
