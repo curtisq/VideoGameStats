@@ -5,5 +5,5 @@ league/keys.py
 *.pyc
 */keys.*
 steam/macaw/pagetest/js/keys*
-page/
+page/proxy.php
 steam/macaw/pagetest/key.txt
