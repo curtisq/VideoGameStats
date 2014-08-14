@@ -1,103 +1,25 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0">
-
-    <title>Steam Player Card</title>
-    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,inherit" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/standardize.css" type="text/css">
-    <link rel="stylesheet" href="css/index-grid.css" type="text/css">
-    <link rel="stylesheet" href="css/index.css" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>Time on Steam</title>
+  <link href="http://fonts.googleapis.com/css?family=Raleway:100,600,400,200" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/standardize.css">
+  <link rel="stylesheet" href="css/intro-grid.css">
+  <link rel="stylesheet" href="css/intro.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="./js/steampjs.js"></script>
 </head>
-
-<body>
-   
-    <p class="credits">A Web Experiment by <a href="http://www.curtisq.com" target="_blank">Curtis QUINTAL</a> and <a href="http://www.saveaspodcast.com" target="_blank">Ryan Quintal</a>.</p>
-
-    <div id="feature" class="feature">
-        <h1>You Have Played 0000 Hours on Steam</h1>
-
-        <h2>THAT'S XXX WEEKS OF GAMING, USERNAME.</h2>
-    </div>
-
-    <div class="list">
-        <h3>Your Top Steam Games of All Time</h3>
-
-        <div class="col 1-left">
-            <div class="game game-1">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">1. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-2">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">2. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-3">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">3. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-4">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">4. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-5">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">5. Warhammer 40K Dawn of War 2 Very Long Name Subtitle<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-        </div>
-
-        <div class="col 2-right">
-            <div class="game game-6">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">6. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-7">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">7. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-8">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">8. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-9">
-                <img class="gameicn" src="###">
-
-                <p class="gamename">9. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-
-            <div class="game game-10">
-                <img class="gameicn" src="###">
-
-                <p class="gamename tenfix">10. Game Name<br>
-                <span>9999 hrs &#8226; 100% Completed</span></p>
-            </div>
-        </div>
-    </div>
+<body class="body intro clearfix" onload="checkError()">
+  <div id='iderror'></div>
+  <h1 class="_text _text-1">How much time do you spend on Steam?</h1>
+  <form class="sign-up clearfix" method="get" action="./get_steamid.php">
+    <input id="steamIDfield" class="_input js-steam-i-d" name="steamid" placeholder="Enter your Steam Profile Page URL" type="text">
+    <button id="showME" class="_button js-show" type="submit">Show Me    </button>
+  </form>
+  <div class="_text _text-2">
+    <p>This web experiment was created by <a href="http://www.curtisq.com" target="_blank">curtis quintal</a> and <a href="http://www.saveaspodcast.com" target="_blank">ryan quintal</a>.</p>
+</div>
 </body>
 </html>
