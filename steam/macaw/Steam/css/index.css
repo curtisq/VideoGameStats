@@ -1,0 +1,173 @@
+body {
+	background-color:#000;
+	font:100 1.125em/1.5 Lato;
+	color:#fff;
+	margin:11px 0;
+}
+
+.credits {
+	font-size:.7em;
+	font-weight:300;
+	line-height:1.38;
+	text-align:center;
+	text-transform:uppercase;
+	letter-spacing:2px;
+	color:gray;
+}
+
+.credits a {
+	color:#c6c6c6;
+}
+
+.feature h1,.feature h2 {
+	width:90%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+h1 {
+	margin-top:10%;
+	font-size:3.667em;
+	letter-spacing:-1px;
+	color:#fff;
+}
+
+h2 {
+	font-size:1em;
+	font-weight:300;
+	letter-spacing:3px;
+	color:#e2d57e;
+	margin-bottom:10%;
+}
+
+.list {
+	width:80%;
+	max-width:1100px;
+	margin:88px auto;
+}
+
+h3 {
+	clear:both;
+	font-size:2em;
+	line-height:1em;
+	font-weight:300;
+	color:#689e8d;
+	text-align:center;
+	width:60%;
+	margin:44px auto;
+}
+
+.feature {
+	float:left;
+	width:100%;
+	background:url(../images/sitebg.jpg);
+	background-size:cover;
+	background-position:center center;
+	overflow:hidden;
+	text-align:center;
+	margin:11px 0 44px;
+}
+
+.col {
+	width:50%;
+	float:left;
+}
+
+.game {
+	display:block;
+	margin:11px;
+	padding:11px;
+}
+
+.gameicn {
+	top:14px;
+	left:0;
+	width:32px;
+	height:32px;
+	border-radius:4px;
+	border:none;
+	background-color:#333;
+	float:left;
+	margin:6px;
+}
+
+.gamename {
+	display:block;
+	font-size:1em;
+	color:#fff;
+	margin-left:72px;
+	text-indent:-1em;
+}
+
+.tenfix {
+	text-indent:-29px;
+}
+
+.gamename span {
+	font-size:.667em;
+	font-weight:700;
+	text-transform:uppercase;
+	letter-spacing:3px;
+	color:#666;
+}
+
+@media(max-width: 960px) {
+	h1 {
+		font-size:2.5em;
+	}
+	
+	h2 {
+		line-height:2em;
+		margin-top:22px;
+	}
+	
+	h3 {
+		font-size:1.8em;
+	}
+	
+	.list {
+		width:100%;
+		font-size:.7em;
+	}
+}
+
+@media(max-width: 600px) {
+	body {
+		margin:22px 0;
+	}
+	
+	.feature {
+		margin-top:22px;
+	}
+	
+	h1 {
+		font-size:2em;
+		line-height:1.2em;
+		letter-spacing:0;
+	}
+	
+	h2 {
+		font-size:.8em;
+	}
+	
+	h3 {
+		line-height:1.5em;
+	}
+	
+	.col {
+		width:100%;
+	}
+	
+	.gamename {
+		font-size:1.3em;
+	}
+	
+	.gamename span {
+		font-size:.5em;
+		letter-spacing:2px;
+	}
+	
+	.credits {
+		font-size:9px;
+	}
+}

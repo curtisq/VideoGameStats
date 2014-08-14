@@ -1,0 +1,245 @@
+body {
+  height: 100%;
+  background: none rgb(0, 0, 0);
+  font: 100 0.75em/1.38 Raleway;
+  color: rgb(154, 154, 154);
+}
+
+.sign-up {
+  float: left;
+  clear: both;
+  width: 52.7994791666%;
+  height: 193px;
+  margin: 53px 0 0 23.59896%;
+}
+
+._text-2 p {
+  margin-bottom: 1em;
+}
+
+._button {
+  display: block;
+  float: left;
+  clear: both;
+  width: 22.7129337539%;
+  max-width: 190px;
+  height: 46px;
+  margin: 55px 0 0 38.48089%;
+  border: 1px solid rgb(126, 212, 166);
+  border-radius: 4px;
+  font-size: 1.167em;
+  font-weight: 600;
+  line-height: 1.38;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgb(126, 212, 166);
+}
+
+._button:hover {
+  border-bottom-width: 0;
+  border-bottom-style: none;
+  background-color: rgb(104, 158, 141);
+  color: rgb(0, 0, 0);
+}
+
+._button:active {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-style: none;
+  background-color: rgb(142, 215, 192);
+  color: rgb(0, 0, 0);
+}
+
+._input {
+  display: block;
+  float: left;
+  width: 99.9359227129%;
+  height: 92px;
+  padding: 0 10px;
+  border-bottom: 2px dotted rgb(204, 204, 204);
+  background-color: rgba(0, 0, 0, 0.04);
+  font-size: 2.333em;
+  font-weight: 400;
+  line-height: 2;
+  text-align: center;
+  letter-spacing: 2px;
+  color: rgb(255, 255, 255);
+}
+
+._text {
+  float: left;
+  margin-left: 16.79948%;
+  line-height: 1.38;
+  text-align: center;
+}
+
+._text-1 {
+  width: 66.3997395833%;
+  min-height: 148px;
+  margin-top: 172px;
+  font-size: 4.167em;
+  font-weight: 200;
+  color: rgb(255, 255, 255);
+}
+
+._text-2 {
+  display: inline-block;
+  clear: both;
+  width: 66.0833333333%;
+  margin-top: 73px;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgb(154, 154, 154);
+}
+
+._text a {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: transparent;
+  border-style: none;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+}
+
+@media(max-width: 980px) {
+  body {
+    height: 100%;
+    background-image: url('../images/valve-intro.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .sign-up {
+    position: relative;
+    z-index: 3;
+    width: 52.7997448979%;
+    height: 203px;
+    margin-top: 65px;
+    margin-left: 23.59694%;
+  }
+
+  ._text {
+    margin-left: 16.7984699999%;
+  }
+
+  .sign-up ._button {
+    width: 32.6254826254%;
+    height: 57px;
+    margin-top: 54px;
+    margin-left: 33.18638%;
+  }
+
+  .sign-up ._input {
+    width: 99.8914092664%;
+    min-width: 300px;
+    max-width: 800px;
+    margin-left: -0.14193%;
+    font-size: 1.833em;
+  }
+
+  ._text-1 {
+    position: relative;
+    z-index: 4;
+    width: 66.3982780612%;
+    min-height: 0;
+    margin-top: 168px;
+    font-size: 3.417em;
+  }
+
+  ._text-2 {
+    width: 66.4285714285%;
+    margin-top: 68px;
+  }
+}
+
+@media(max-width: 640px) {
+  ._button:hover {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    background-color: rgba(0, 0, 0, 0.45);
+    color: rgb(126, 212, 166);
+  }
+
+  ._button:active {
+    background-color: rgb(126, 212, 166);
+    font-weight: 800;
+  }
+
+  body {
+    font-size: 0.75em;
+  }
+
+  .sign-up {
+    position: relative;
+    z-index: 3;
+    width: 66.25%;
+    height: 268px;
+    margin-top: -23px;
+    margin-left: 16.79932%;
+  }
+
+  ._text {
+    margin-left: 16.79932%;
+  }
+
+  .sign-up ._button {
+    width: 100%;
+    max-width: none;
+    height: 91px;
+    margin-top: 61px;
+    margin-left: 0;
+  }
+
+  .sign-up ._input {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-top: 24px;
+    margin-left: 0;
+    font-size: 1.5em;
+  }
+
+  ._text-1 {
+    position: relative;
+    z-index: 4;
+    width: 66.3989257812%;
+    min-height: 120px;
+    margin-top: 98px;
+    font-size: 2.667em;
+  }
+
+  ._text-2 {
+    width: 66.4282226562%;
+    margin-top: 73px;
+  }
+}
+
+@media(max-width: 350px) {
+  .sign-up {
+    position: relative;
+    z-index: 3;
+    margin-left: 16.79911%;
+  }
+
+  ._text {
+    margin-left: 16.79911%;
+  }
+
+  .sign-up ._input {
+    width: 100.0539083557%;
+    min-width: none;
+    margin-left: -0.05391%;
+  }
+
+  ._text-1 {
+    position: relative;
+    z-index: 4;
+  }
+}
