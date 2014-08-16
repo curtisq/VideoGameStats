@@ -14,7 +14,7 @@ $url = addhttp($url);
 #get contents of url return in error if no page found
 $file = file_get_contents($url);
 if($file === FALSE){
-  $location = "/steam/macaw/Steam/index.html?error=nopage";
+  $location = "/index.html?error=nopage";
   header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location); 
   exit();
 }
@@ -27,7 +27,7 @@ $steamid = $arr[0];
 
 #If no steam id string then page was not proper steam profile page
 if($steamid == "") {
-  $location = "/steam/macaw/Steam/index.html?error=noprofile";
+  $location = "/index.html?error=noprofile";
   header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
   exit();
 }

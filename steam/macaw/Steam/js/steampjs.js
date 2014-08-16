@@ -128,19 +128,10 @@ function playtimeTotal(key, id) {
 		info['playtime_mins'] = top_games[game]['playtime_forever'];
 		info['playtime_hours'] = Math.round(top_games[game]['playtime_forever']/60);
 		info['name'] = top_games[game]['name'];
+		info['appid'] = top_games[game]['appid'];
 		info['rank'] = parseInt(game) + 1;
 		info['icon_url'] = 'http://media.steampowered.com/steamcommunity/public/images/apps/' + top_games[game]['appid'] + '/' + top_games[game]['img_icon_url'] + '.jpg';
 		info['game_page'] = 'http://store.steampowered.com/app/' + top_games[game]['appid'];
-		achievs = getGameAchievements(key, id, top_games[game]['appid']);
-		for (achv in achievs['achievements']) {
-			total_achvs++;
-			if (achievs['achievements'][achv]['achieved'] == 1) {
-				comp_achvs++;
-			}	
-		}
-		info['total_achvs'] = total_achvs;
-		info['comp_acvs'] = comp_achvs;
-		info['pct_complete'] = Math.round((comp_achvs / total_achvs) * 100) || "?";
 		listVals.push(info)
 	}
 	
@@ -153,6 +144,23 @@ function playtimeTotal(key, id) {
 	return allinfo
 }
 
+function getListAchievements(gamelist) {
+	for (game in gamelist) {
+		var total_achvs = 0;
+		var comp_achvs = 0;
+		achievs = getGameAchievements(key, id, gamelist[game]['appid']);
+		for (achv in achievs['achievements']) {
+			total_achvs++;
+			if (achievs['achievements'][achv]['achieved'] == 1) {
+				comp_achvs++;
+			}	
+		}
+		gamelist[game]['total_achvs'] = total_achvs;
+		gamelist[game]['comp_acvs'] = comp_achvs;
+		gamelist[game]['pct_complete'] = Math.round((comp_achvs / total_achvs) * 100) || "NA";
+	}
+	return gamelist;
+}
 /*Get url params
  * from stackoverflor
  */
@@ -218,17 +226,31 @@ function getStats() {
 	for (game in top5){
 		var element = "<div class='game game-" + top5[game]['rank'] + "'>";
 		element += "<a href='" + top5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename'>" + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
 		$('.1-left').append(element);
 	}
 
 	//Generate Game lists
 	for (game in bot5){
 		var element = "<div class='game game-" + bot5[game]['rank'] + "'>";
-		element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename'>" + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + bot5[game]['icon_url'] + "'></a>";
+		element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
 		$('.2-right').append(element);
 	}
 
+	//Now replace elements with achievement info
+	getListAchievements(top5);
+	for (game in top5){
+		var gameid = "#game" + top5[game]['appid'];
+		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		$(gameid).replaceWith(newgame);
+	}
+	getListAchievements(bot5);
+	for (game in bot5){
+		var gameid = "#game" + bot5[game]['appid'];
+		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		$(gameid).replaceWith(newgame);
+	}
+	
 	return;
 }

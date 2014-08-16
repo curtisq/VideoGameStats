@@ -4,6 +4,9 @@ league/keys.py
 */*.pyc
 *.pyc
 */keys.*
+*/*.swp
+*/*.DS_Store
 steam/macaw/pagetest/js/keys*
 page/proxy.php
+steam/macaw/Steam/proxy.php
 steam/macaw/pagetest/key.txt
