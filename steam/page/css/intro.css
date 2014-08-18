@@ -1,8 +1,6 @@
 body {
   height: 100%;
-  background: url('../images/valve-intro.jpg') rgb(0, 0, 0);
-  background-size: cover;
-  background-position: center center;
+  background: none rgb(0, 0, 0);
   font: 100 0.75em/1.38 Raleway;
   color: rgb(154, 154, 154);
 }
@@ -110,6 +108,14 @@ body {
 }
 
 @media(max-width: 980px) {
+  body {
+    height: 100%;
+    background-image: url('../images/valve-intro.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
   .sign-up {
     position: relative;
     z-index: 3;
@@ -167,7 +173,7 @@ body {
   }
 
   body {
-    background-repeat: no-repeat;
+    font-size: 0.75em;
   }
 
   .sign-up {
