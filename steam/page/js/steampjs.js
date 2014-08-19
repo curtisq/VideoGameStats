@@ -226,7 +226,7 @@ function getStats() {
 	for (game in top5){
 		var element = "<div class='game game-" + top5[game]['rank'] + "'>";
 		element += "<a href='" + top5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
+		element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + " " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
 		$('.1-left').append(element);
 	}
 
@@ -234,7 +234,7 @@ function getStats() {
 	for (game in bot5){
 		var element = "<div class='game game-" + bot5[game]['rank'] + "'>";
 		element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + bot5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
+		element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + " " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
 		$('.2-right').append(element);
 	}
 
@@ -242,13 +242,13 @@ function getStats() {
 	getListAchievements(top5);
 	for (game in top5){
 		var gameid = "#game" + top5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + " " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
 		$(gameid).replaceWith(newgame);
 	}
 	getListAchievements(bot5);
 	for (game in bot5){
 		var gameid = "#game" + bot5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + " " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
 		$(gameid).replaceWith(newgame);
 	}
 	
