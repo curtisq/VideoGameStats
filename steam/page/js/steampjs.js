@@ -21,22 +21,6 @@ function timeString(mins) {
 	return ("" + days.toFixed(3) + " Days");
 }
 
-function getJson(url) {
-	console.log("Requesting JSON from URL " + url);
-	$.getJSON( url, function( data ) {
-		var items = [];
-		$.each( data, function( key, val ) {
-			items.push( "<li id='" + key + "'>" + val + "</li>" );
-		});
-		     
-		$( "<ul/>", {
-			"class": "my-new-list",
-			html: items.join( "" )
-		}).appendTo( "body" );
-	});
-	console.log("Request Finished");
-}
-
 /* Takes api key and steam id
  * returns object with user's steam profile info
  */
@@ -83,8 +67,12 @@ function getOwnedGames(apiKey, userId, profileinfo) {
 			console.log(json);
 			var data = json["response"];
 			var playinfo = playtimeTotal(data);
-			$('#mainhead').text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
-			$('#subhead').text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
+			$("#mainhead").fadeOut(function() {
+				$(this).text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
+			}).fadeIn(2500);
+			$("#subhead").fadeOut("slow", function() {
+				$(this).text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
+			}).fadeIn(5000);
 			//Now display Game List
 	
 			var top5 = playinfo['top10'].slice(0,5);
@@ -96,7 +84,7 @@ function getOwnedGames(apiKey, userId, profileinfo) {
 				var gid = "gid" + top5[game]['appid'];
 				element += "<a href='" + top5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
 				element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span id='" + gid + "'>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
-				$('.1-left').append(element);
+				$('.1-left').append($(element).hide().delay(1800).fadeIn(2500));
 				getGameAchievements(key, id, top5[game]['appid'], top5[game]['playtime_hours']);
 			}
 
@@ -106,26 +94,10 @@ function getOwnedGames(apiKey, userId, profileinfo) {
 				var gid = "gid" + bot5[game]['appid'];
 				element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + bot5[game]['icon_url'] + "'></a>";
 				element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span id='" + gid + "'>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
-				$('.2-right').append(element);
+				$('.2-right').append($(element).hide().delay(1800).fadeIn(2500));
 				getGameAchievements(key, id, bot5[game]['appid'], top5[game]['playtime_hours']);
 			}
 			return;
-	//Now replace elements with achievement info
-	getListAchievements(top5);
-	for (game in top5){
-		var gameid = "#game" + top5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
-		$(gameid).replaceWith(newgame);
-	}
-	getListAchievements(bot5);
-	for (game in bot5){
-		var gameid = "#game" + bot5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
-		$(gameid).replaceWith(newgame);
-	}
-	
-	return;
-
 		}
 	});
 	console.log("Request finished");
@@ -213,23 +185,6 @@ function playtimeTotal(data) {
 	return allinfo
 }
 
-function getListAchievements(gamelist) {
-	for (game in gamelist) {
-		var total_achvs = 0;
-		var comp_achvs = 0;
-		achievs = getGameAchievements(key, id, gamelist[game]['appid']);
-		for (achv in achievs['achievements']) {
-			total_achvs++;
-			if (achievs['achievements'][achv]['achieved'] == 1) {
-				comp_achvs++;
-			}	
-		}
-		gamelist[game]['total_achvs'] = total_achvs;
-		gamelist[game]['comp_acvs'] = comp_achvs;
-		gamelist[game]['pct_complete'] = Math.round((comp_achvs / total_achvs) * 100) || "NA";
-	}
-	return gamelist;
-}
 /*Get url params
  * from stackoverflor
  */
@@ -265,67 +220,9 @@ function getStats() {
 	} else {
 		//No Steam ID entered return in error
 	}
-
 	key = "";
 	
-	//get profile info
+	//get profile info, this kicks off getting rest of indo async
 	var profileinfo = getProfileSummary(key, id);
-	return;
-
-	//below is code from synchronous version, no longer executed
-	console.log(profileinfo);
-	if(jQuery.isEmptyObject(profileinfo)) {
-		//couldnt aquire profile info return in error
-		console.log("Empty profileinfo");
-	}
-	//get playtime info
-	var gamedata = getOwnedGames(key, id);
-	if(jQuery.isEmptyObject(playinfo)) {
-		//couldnt aquire game info return in error
-		console.log("Empty gameinfo");
-	}
-	//Replace headline text
-	$('#mainhead').text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
-	$('#subhead').text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
-	return;
-	//profileinfo['profileurl'] is players page
-	//profileinfo['personastate'] is status 0- offline 1-online 2-busy 3-away 4-snooze 5-looking to trade 6-looking to play
-	//profileinfo['avatarfull'] 184x184px avatar
-	//profileinfo['avatarmedium'] 64x64px avatar
-	//profileinfo['timecreated'] time since epoch account was created PRIVATE INFO
-	
-	var top5 = playinfo['top10'].slice(0,5);
-	var bot5 = playinfo['top10'].slice(5,10);
-	
-	//Generate Game lists
-	for (game in top5){
-		var element = "<div class='game game-" + top5[game]['rank'] + "'>";
-		element += "<a href='" + top5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
-		$('.1-left').append(element);
-	}
-
-	//Generate Game lists
-	for (game in bot5){
-		var element = "<div class='game game-" + bot5[game]['rank'] + "'>";
-		element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + bot5[game]['icon_url'] + "'></a>";
-		element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
-		$('.2-right').append(element);
-	}
-
-	//Now replace elements with achievement info
-	getListAchievements(top5);
-	for (game in top5){
-		var gameid = "#game" + top5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
-		$(gameid).replaceWith(newgame);
-	}
-	getListAchievements(bot5);
-	for (game in bot5){
-		var gameid = "#game" + bot5[game]['appid'];
-		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
-		$(gameid).replaceWith(newgame);
-	}
-	
 	return;
 }
