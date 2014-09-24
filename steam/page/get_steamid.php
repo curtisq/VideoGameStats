@@ -33,7 +33,7 @@ if($steamid == "") {
 }
 
 #If everything was good load results page with steamid param
-$location = "/steam/macaw/Steam/results.html?steamid=" . $steamid;
+$location = "/VideoGameStats/steam/page/results.html?steamid=" . $steamid;
 header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
 exit();
 

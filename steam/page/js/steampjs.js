@@ -47,11 +47,17 @@ function getProfileSummary(apiKey, userId) {
 	var mydata = {};
 	$.ajax({
 		url: "./proxy.php",
-		async: false,
+		async: true,
 		dataType: 'json',
 		data: { requrl: url },
 		success: function (json) {
 			mydata = json["response"]["players"][0];
+			console.log("Success Func");
+			console.log(json);
+			getOwnedGames(key, id, mydata);
+		},
+		error: function() {
+			console.log("ERROR FUNC");
 		}
 	});
 	console.log("Request finished");
@@ -61,7 +67,7 @@ function getProfileSummary(apiKey, userId) {
 /* Takes api key and steam id
  * returns object with user's owned game list
  */
-function getOwnedGames(apiKey, userId) {
+function getOwnedGames(apiKey, userId, profileinfo) {
 
 	var url = baseURL + ownedGamesURL + "&steamid=" + userId;
 	url += "&include_appinfo=1" + "&include_played_free_games=1";
@@ -69,11 +75,57 @@ function getOwnedGames(apiKey, userId) {
 	var mydata = {};
 	$.ajax({
 		url: "./proxy.php",
-		async: false,
+		async: true,
 		dataType: 'json',
 		data: { requrl: url },
 		success: function (json) {
-			mydata = json["response"];
+			console.log("Succes func, getownedGames");
+			console.log(json);
+			var data = json["response"];
+			var playinfo = playtimeTotal(data);
+			$('#mainhead').text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
+			$('#subhead').text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
+			//Now display Game List
+	
+			var top5 = playinfo['top10'].slice(0,5);
+			var bot5 = playinfo['top10'].slice(5,10);
+	
+			//Generate Game lists
+			for (game in top5){
+				var element = "<div class='game game-" + top5[game]['rank'] + "'>";
+				var gid = "gid" + top5[game]['appid'];
+				element += "<a href='" + top5[game]['game_page'] + "'><img class='gameicn' src='" + top5[game]['icon_url'] + "'></a>";
+				element += "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span id='" + gid + "'>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
+				$('.1-left').append(element);
+				getGameAchievements(key, id, top5[game]['appid'], top5[game]['playtime_hours']);
+			}
+
+			//Generate Game lists
+			for (game in bot5){
+				var element = "<div class='game game-" + bot5[game]['rank'] + "'>";
+				var gid = "gid" + bot5[game]['appid'];
+				element += "<a href='" + bot5[game]['game_page'] + "'><img class='gameicn' src='" + bot5[game]['icon_url'] + "'></a>";
+				element += "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span id='" + gid + "'>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + "?% Completed.</span></p></div>";
+				$('.2-right').append(element);
+				getGameAchievements(key, id, bot5[game]['appid'], top5[game]['playtime_hours']);
+			}
+			return;
+	//Now replace elements with achievement info
+	getListAchievements(top5);
+	for (game in top5){
+		var gameid = "#game" + top5[game]['appid'];
+		var newgame = "<p class='gamename' id='game" + top5[game]['appid'] + "'>" + top5[game]['rank'] + ". " + top5[game]['name'] + "<br><span>" + top5[game]['playtime_hours'] + " hrs. &#8226; " + top5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		$(gameid).replaceWith(newgame);
+	}
+	getListAchievements(bot5);
+	for (game in bot5){
+		var gameid = "#game" + bot5[game]['appid'];
+		var newgame = "<p class='gamename' id='game" + bot5[game]['appid'] + "'>" + bot5[game]['rank'] + ". " + bot5[game]['name'] + "<br><span>" + bot5[game]['playtime_hours'] + " hrs. &#8226; " + bot5[game]['pct_complete'] + "% Completed.</span></p></div>";
+		$(gameid).replaceWith(newgame);
+	}
+	
+	return;
+
 		}
 	});
 	console.log("Request finished");
@@ -83,7 +135,7 @@ function getOwnedGames(apiKey, userId) {
 /* Takes api key and steam id
  * returns object with user's owned game list
  */
-function getGameAchievements(apiKey, userId, appid) {
+function getGameAchievements(apiKey, userId, appid, hours) {
 
 	var url = baseURL + achievementsURL + "&steamid=" + userId;
 	url += "&appid=" + appid;
@@ -91,14 +143,32 @@ function getGameAchievements(apiKey, userId, appid) {
 	var mydata = {};
 	$.ajax({
 		url: "./proxy.php",
-		async: false,
+		async: true,
 		dataType: 'json',
 		data: { requrl: url },
 		success: function (json) {
 			mydata = json["playerstats"];
+			console.log("ACHVS| ID-" + appid + " HRS-" + hours);
+			var gid = "#gid" + appid;
+			var total_achvs = 0;
+			var comp_achvs = 0;
+			for (achv in mydata['achievements']) {
+				total_achvs++;
+				if (mydata['achievements'][achv]['achieved'] == 1) {
+					comp_achvs++;
+				}	
+			}
+			var pctComplete = Math.round((comp_achvs / total_achvs) * 100) || "NA";
+			$(gid).replaceWith("<span>" + hours + " hrs. &#8226; " + pctComplete + "% Completed.</span>");
+			console.log("ACHVS| ID-" + appid + " HRS-" + hours + " PCT-" + pctComplete);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log("ERROR ACHVS");
+			console.log("xhr.status");
+			console.log("thrownError");
 		}
 	});
-	console.log("Request finished");
+	console.log("Request finished- GetAchvs");
 	return mydata;
 }
 
@@ -110,8 +180,7 @@ function compare_playtime(a,b) {
 	return 0;
 }
 
-function playtimeTotal(key, id) {
-	var data = getOwnedGames(key, id);
+function playtimeTotal(data) {
 	var games = data['games'];
 	var sorted_games = games.sort(compare_playtime);
 	sorted_games.reverse(); //high to low
@@ -201,26 +270,32 @@ function getStats() {
 	
 	//get profile info
 	var profileinfo = getProfileSummary(key, id);
+	return;
+
+	//below is code from synchronous version, no longer executed
 	console.log(profileinfo);
 	if(jQuery.isEmptyObject(profileinfo)) {
 		//couldnt aquire profile info return in error
+		console.log("Empty profileinfo");
 	}
 	//get playtime info
-	var playinfo = playtimeTotal(key, id);
-	console.log(playinfo);
+	var gamedata = getOwnedGames(key, id);
 	if(jQuery.isEmptyObject(playinfo)) {
 		//couldnt aquire game info return in error
+		console.log("Empty gameinfo");
 	}
-	var top5 = playinfo['top10'].slice(0,5);
-	var bot5 = playinfo['top10'].slice(5,10);
 	//Replace headline text
 	$('#mainhead').text("You've played " + playinfo['total_playtime_hours'] + " hours of games.");
 	$('#subhead').text("That's " + playinfo['total_playtime_string'] + " of games, " + profileinfo['personaname'] + ".");
+	return;
 	//profileinfo['profileurl'] is players page
 	//profileinfo['personastate'] is status 0- offline 1-online 2-busy 3-away 4-snooze 5-looking to trade 6-looking to play
 	//profileinfo['avatarfull'] 184x184px avatar
 	//profileinfo['avatarmedium'] 64x64px avatar
 	//profileinfo['timecreated'] time since epoch account was created PRIVATE INFO
+	
+	var top5 = playinfo['top10'].slice(0,5);
+	var bot5 = playinfo['top10'].slice(5,10);
 	
 	//Generate Game lists
 	for (game in top5){
